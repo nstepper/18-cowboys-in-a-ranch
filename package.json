@@ -1,0 +1,24 @@
+{
+  "name": "18-cowboys-in-a-ranch",
+  "version": "1.0.0",
+  "description": "A social networking app that uses a NoSQL database ",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nstepper/18-cowboys-in-a-ranch.git"
+  },
+  "keywords": [
+    "Social",
+    "Network",
+    "Media"
+  ],
+  "author": "Nathan Stepper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nstepper/18-cowboys-in-a-ranch/issues"
+  },
+  "homepage": "https://github.com/nstepper/18-cowboys-in-a-ranch#readme"
+}
