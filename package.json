@@ -1,10 +1,11 @@
 {
   "name": "18-cowboys-in-a-ranch",
   "version": "1.0.0",
-  "description": "A social networking app that uses a NoSQL database ",
-  "main": "index.js",
+  "description": "A social networking app that uses a NoSql database",
+  "main": "server.js",
   "scripts": {
-    "test": "npm start"
+    "test": "npm start",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
