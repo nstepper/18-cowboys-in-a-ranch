@@ -9,6 +9,8 @@ const {
   removeFriend
 } = require('../../controllers/userController');
 
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser, addFriend, removeFriend } from '../../controllers/userController';
+
 // GET all users
 router.get('/users', getAllUsers);
 
@@ -31,3 +33,4 @@ router.post('/users/:userId/friends/:friendId', addFriend);
 router.delete('/users/:userId/friends/:friendId', removeFriend);
 
 module.exports = router;
+export default router;
