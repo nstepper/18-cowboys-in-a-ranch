@@ -1,4 +1,4 @@
-const { Thought, User } = require('../models');
+import { Thought, User } from '../models';
 
 const thoughtController = {
     getAllThoughts(req, res) {
@@ -148,7 +148,5 @@ const thoughtController = {
     }
   };
   
-  module.exports = thoughtController;
-  
 
-module.exports = thoughtController;
+export default thoughtController;

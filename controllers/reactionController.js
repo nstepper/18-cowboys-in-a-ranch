@@ -1,4 +1,4 @@
-const { Thought } = require('../models');
+import { Thought } from '../models';
 
 const reactionController = {
   // Controller function to add a reaction to a thought
@@ -46,4 +46,4 @@ const reactionController = {
   }
 };
 
-module.exports = reactionController;
+export default reactionController;
