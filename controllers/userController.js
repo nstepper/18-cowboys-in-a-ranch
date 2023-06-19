@@ -9,14 +9,15 @@ const userController = {
         select: '-__v'
       })
       .select('-__v -password')
+      .sort({ _id: -1 })
       .then(userData => res.json(userData))
       .catch(err => {
         console.log(err);
-        res.sendStatus(500);
+        res.status(500).json(err);
       });
   },
 
-  // Get a single user by ID
+  // Get a user by ID
   getUserById({ params }, res) {
     User.findOne({ _id: params.id })
       .populate({
@@ -33,7 +34,7 @@ const userController = {
       })
       .catch(err => {
         console.log(err);
-        res.sendStatus(500);
+        res.status(500).json(err);
       });
   },
 
@@ -71,25 +72,21 @@ const userController = {
           res.status(404).json({ message: 'No user found with this id!' });
           return;
         }
-        // Remove the user's associated thoughts
-        return Thought.deleteMany({ username: deletedUser.username });
+        // Remove associated thoughts
+        return Thought.deleteMany({ _id: { $in: deletedUser.thoughts } });
       })
       .then(() => {
-        res.json({ message: 'User and associated thoughts deleted successfully!' });
+        res.json({ message: 'User and associated thoughts deleted!' });
       })
       .catch(err => {
         console.log(err);
-        res.sendStatus(500);
+        res.status(400).json(err);
       });
   },
 
   // Add a friend to a user's friend list
   addFriend({ params }, res) {
-    User.findOneAndUpdate(
-      { _id: params.userId },
-      { $push: { friends: params.friendId } },
-      { new: true }
-    )
+    User.findOneAndUpdate({ _id: params.userId }, { $push: { friends: params.friendId } }, { new: true })
       .then(userData => {
         if (!userData) {
           res.status(404).json({ message: 'No user found with this userId!' });
@@ -99,17 +96,13 @@ const userController = {
       })
       .catch(err => {
         console.log(err);
-        res.sendStatus(500);
+        res.status(400).json(err);
       });
   },
 
   // Remove a friend from a user's friend list
   removeFriend({ params }, res) {
-    User.findOneAndUpdate(
-      { _id: params.userId },
-      { $pull: { friends: params.friendId } },
-      { new: true }
-    )
+    User.findOneAndUpdate({ _id: params.userId }, { $pull: { friends: params.friendId } }, { new: true })
       .then(userData => {
         if (!userData) {
           res.status(404).json({ message: 'No user found with this userId!' });
@@ -119,7 +112,7 @@ const userController = {
       })
       .catch(err => {
         console.log(err);
-        res.sendStatus(500);
+        res.status(400).json(err);
       });
   }
 };

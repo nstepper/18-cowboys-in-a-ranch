@@ -1,7 +1,7 @@
-const { Thought, Reaction } = require('../models');
+const { Thought } = require('../models');
 
 const reactionController = {
-  // Add a new reaction to a thought
+  // Controller function to add a reaction to a thought
   addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
@@ -10,9 +10,11 @@ const reactionController = {
     )
       .then(thoughtData => {
         if (!thoughtData) {
+          // If no thought is found with the given id, return a 404 status
           res.status(404).json({ message: 'No thought found with this id!' });
           return;
         }
+        // If the thought is found, return the updated thought data
         res.json(thoughtData);
       })
       .catch(err => {
@@ -21,8 +23,8 @@ const reactionController = {
       });
   },
 
-  // Remove a reaction from a thought
-  removeReaction({ params }, res) {
+  // Controller function to remove a reaction from a thought
+  deleteReaction({ params }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $pull: { reactions: { reactionId: params.reactionId } } },
@@ -30,9 +32,11 @@ const reactionController = {
     )
       .then(thoughtData => {
         if (!thoughtData) {
+          // If no thought is found with the given id, return a 404 status
           res.status(404).json({ message: 'No thought found with this id!' });
           return;
         }
+        // If the thought is found, return the updated thought data
         res.json(thoughtData);
       })
       .catch(err => {
