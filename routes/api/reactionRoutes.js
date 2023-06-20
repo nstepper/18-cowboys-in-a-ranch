@@ -1,11 +1,20 @@
 const router = require('express').Router();
-import { addReaction, removeReaction } from '../../controllers/reactionController';
+const addReaction = require('../../controllers/reactionController'); 
+
 
 // POST route to add a reaction to a thought
-router.route('/:thoughtId').post(addReaction);
-
-// DELETE route to remove a reaction from a thought
-router.route('/:thoughtId/:reactionId').delete(removeReaction);
+router.route('/:thoughtId').post((req, res) => {
+    const { thoughtId } = req.params;
+    const { reactionBody } = req.body;
+  
+    try {
+      addReaction(thoughtId, reactionBody);
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
+  });
 
 module.exports = router;
 
