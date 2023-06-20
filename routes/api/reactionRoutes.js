@@ -8,4 +8,4 @@ router.route('/:thoughtId').post(addReaction);
 router.route('/:thoughtId/:reactionId').delete(removeReaction);
 
 module.exports = router;
-export default router;
+

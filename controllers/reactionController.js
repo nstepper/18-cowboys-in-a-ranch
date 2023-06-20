@@ -1,4 +1,4 @@
-import { Thought } from '../models';
+const Thought = require('../models/thought');
 
 const reactionController = {
   // Controller function to add a reaction to a thought
