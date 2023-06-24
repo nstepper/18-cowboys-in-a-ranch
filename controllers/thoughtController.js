@@ -1,4 +1,5 @@
-import { Thought, User } from '../models';
+const User = require('../models/user');
+const Thought = require('../models/thought');
 
 const thoughtController = {
     getAllThoughts(req, res) {
@@ -73,7 +74,7 @@ const thoughtController = {
         });
     },
   
-    deleteThought({ params }, res) {
+   /* deleteThought({ params }, res) {
       Thought.findOneAndDelete({ _id: params.id })
         .then(deletedThought => {
           if (!deletedThought) {
@@ -97,7 +98,7 @@ const thoughtController = {
           console.log(err);
           res.sendStatus(500);
         });
-    },
+    }, */
   
     addReaction({ params, body }, res) {
       Thought.findOneAndUpdate(
@@ -123,7 +124,7 @@ const thoughtController = {
         });
     },
   
-    deleteReaction({ params }, res) {
+  /*  deleteReaction({ params }, res) {
       Thought.findOneAndUpdate(
         { _id: params.thoughtId },
         { $pull: { reactions: { reactionId: params.reactionId } } },
@@ -146,7 +147,8 @@ const thoughtController = {
           res.sendStatus(500);
         });
     }
+    */
   };
   
 
-export default thoughtController;
+  module.exports = thoughtController;

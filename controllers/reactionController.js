@@ -1,49 +1,32 @@
-import { Thought } from '../models';
+const Thought = require('../models/thought');
 
-const reactionController = {
-  // Controller function to add a reaction to a thought
-  addReaction({ params, body }, res) {
-    Thought.findOneAndUpdate(
-      { _id: params.thoughtId },
-      { $push: { reactions: body } },
-      { new: true, runValidators: true }
-    )
-      .then(thoughtData => {
-        if (!thoughtData) {
-          // If no thought is found with the given id, return a 404 status
-          res.status(404).json({ message: 'No thought found with this id!' });
-          return;
-        }
-        // If the thought is found, return the updated thought data
-        res.json(thoughtData);
-      })
-      .catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-      });
-  },
 
-  // Controller function to remove a reaction from a thought
-  deleteReaction({ params }, res) {
-    Thought.findOneAndUpdate(
-      { _id: params.thoughtId },
-      { $pull: { reactions: { reactionId: params.reactionId } } },
-      { new: true }
-    )
-      .then(thoughtData => {
-        if (!thoughtData) {
-          // If no thought is found with the given id, return a 404 status
-          res.status(404).json({ message: 'No thought found with this id!' });
-          return;
-        }
-        // If the thought is found, return the updated thought data
-        res.json(thoughtData);
-      })
-      .catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-      });
-  }
+const addReaction = (thoughtId, reactionBody) => {
+  // Create a new reaction document using the Reaction model
+  const newReaction = new Reaction({
+    reactionBody,
+  });
+
+
+  // Find the thought by its ID and push the new reaction into the reactions array
+  Thought.findByIdAndUpdate(
+    thoughtId,
+    { $push: { reactions: newReaction } },
+    { new: true, runValidators: true }
+  )
+    .then((thought) => {
+      if (!thought) {
+        // Handle case where thought is not found
+        throw new Error('Thought not found');
+      }
+      // Return the updated thought with the new reaction
+      return thought;
+    })
+    .catch((err) => {
+      // Handle any errors that occurred during the process
+      console.log(err);
+      throw new Error('Failed to add reaction');
+    });
 };
 
-export default reactionController;
+module.exports = { addReaction };

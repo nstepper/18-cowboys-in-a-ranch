@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const connectDB = async () => {
     try {
-      await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network-api', {
+      // Set debug option to true
+      mongoose.set('debug', true);
+      await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/cowboys-in-a-ranch', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
