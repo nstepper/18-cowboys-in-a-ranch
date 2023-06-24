@@ -24,6 +24,6 @@
   "homepage": "https://github.com/nstepper/18-cowboys-in-a-ranch#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "mongoose": "^7.3.0"
+    "mongoose": "^7.3.1"
   }
 }
